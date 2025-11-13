@@ -18,7 +18,7 @@ public class SqlQueries {
             ");";
 
     public static final String INSERT_DEFAULT_TABS =
-        "INSERT INTO tabs VALUES" +
+        "INSERT OR IGNORE INTO tabs VALUES" +
             "(1, 'done')," +
             "(2, 'miscellaneous')" +
             ";";

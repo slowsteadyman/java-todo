@@ -13,6 +13,14 @@ public class TodoApp {
         dbManager.configureDefaultEnvironment();
 
         int option = Validator.validateOption(view.chooseOption());
+        switch (option) {
+            case 1:
+                createTodo();
+        }
+    }
 
+    private void createTodo() {
+        String name = Helper.repeatUntilValid(view.todoNameInput, Validator.validateTodoName);
+        String description = view.todoDescriptionInput();
     }
 }
