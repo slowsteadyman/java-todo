@@ -2,17 +2,15 @@ package todo;
 
 public class TodoApp {
     private DbManager dbManager;
-    private View view;
 
-    public TodoApp(DbManager dbManager, View view) {
+    public TodoApp(DbManager dbManager) {
         this.dbManager = dbManager;
-        this.view = view;
     }
 
     public void run() {
         dbManager.configureDefaultEnvironment();
 
-        int option = Validator.validateOption(view.chooseOption());
+        int option = Validator.validateOption(View.chooseOption());
         switch (option) {
             case 1:
                 createTodo();
@@ -20,7 +18,7 @@ public class TodoApp {
     }
 
     private void createTodo() {
-        String name = Helper.repeatUntilValid(view.todoNameInput, Validator.validateTodoName);
-        String description = view.todoDescriptionInput();
+        String name = Helper.repeatUntilValid(View.todoNameInput, Validator.validateTodoName);
+        String description = View.todoDescriptionInput();
     }
 }

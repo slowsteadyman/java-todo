@@ -3,7 +3,7 @@ package todo;
 import java.util.function.Supplier;
 
 public class View {
-    public String chooseOption() {
+    public static String chooseOption() {
         System.out.println("""
             원하는 옵션을 선택해 주시기 바랍니다.
             1. 할 일 추가
@@ -14,12 +14,12 @@ public class View {
         return Helper.readLine();
     }
 
-    Supplier<String> todoNameInput = () -> {
+    public static Supplier<String> todoNameInput = () -> {
         System.out.println("할일 이름을 입력해 주시기 바랍니다.");
         return Helper.readLine();
     };
 
-    public String todoDescriptionInput() {
+    public static String todoDescriptionInput() {
         System.out.println("할일 설명을 입력해 주시기 바랍니다. 꼭 입력하지 않아도 됩니다.");
         return Helper.readLine();
     }
