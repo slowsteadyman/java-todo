@@ -50,7 +50,7 @@ public class TodoApp {
     }
 
     private int readTabIdUntilValid() {
-        HashMap<String, String> tabs = dbManager.readTab();
+        HashMap<String, String> tabs = dbManager.readTabsWithoutDone();
         while (true) {
             try {
                 String tabId = View.todoTabIdInput(tabs);

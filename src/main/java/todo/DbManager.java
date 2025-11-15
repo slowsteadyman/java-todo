@@ -40,14 +40,14 @@ public class DbManager {
         }
     }
 
-    public HashMap<String, String> readTab() {
+    public HashMap<String, String> readTabsWithoutDone() {
         HashMap<String, String> tabs = new HashMap<>();
         try (
             Connection connection = DriverManager.getConnection(dbUrl);
             Statement statement = connection.createStatement();
         ) {
             statement.setQueryTimeout(30);
-            ResultSet rs = statement.executeQuery(SqlQueries.READ_TABS);
+            ResultSet rs = statement.executeQuery(SqlQueries.READ_TABS_WITHOUT_DONE);
             while (rs.next()) {
                 tabs.put(rs.getString(1), rs.getString(2));
             }

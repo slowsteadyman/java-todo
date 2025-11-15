@@ -23,5 +23,7 @@ public class SqlQueries {
             "(2, 'miscellaneous')" +
             ";";
 
-    public static final String READ_TABS = "SELECT * FROM tabs;";
+    public static final String READ_TABS_WITHOUT_DONE =
+        "SELECT * FROM tabs "
+        + "WHERE id <> 1;";
 }
