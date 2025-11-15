@@ -22,4 +22,6 @@ public class SqlQueries {
             "(1, 'done')," +
             "(2, 'miscellaneous')" +
             ";";
+
+    public static final String READ_TABS = "SELECT * FROM tabs;";
 }

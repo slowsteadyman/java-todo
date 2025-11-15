@@ -20,5 +20,7 @@ public class TodoApp {
     private void createTodo() {
         String name = Helper.repeatUntilValid(View.todoNameInput, Validator.validateTodoName);
         String description = View.todoDescriptionInput();
+        String tabId = Helper.repeatUntilWithInput(dbManager.readTab(), View.todoTabIdInput,
+            Validator.validateTodoTabId);
     }
 }

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class DbManager {
     private static final String dbUrl = "jdbc:sqlite:todo.db";
@@ -37,5 +38,22 @@ public class DbManager {
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         }
+    }
+
+    public HashMap<String, String> readTab() {
+        HashMap<String, String> tabs = new HashMap<>();
+        try (
+            Connection connection = DriverManager.getConnection(dbUrl);
+            Statement statement = connection.createStatement();
+        ) {
+            statement.setQueryTimeout(30);
+            ResultSet rs = statement.executeQuery(SqlQueries.READ_TABS);
+            while (rs.next()) {
+                tabs.put(rs.getString(1), rs.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return tabs;
     }
 }
