@@ -24,6 +24,9 @@ public class TodoApp {
         String description = View.todoDescriptionInput();
         int tabId = readTabIdUntilValid();
         String deadline = readDeadlineUntilValid();
+        Todo todo = new Todo(name, description, tabId, deadline);
+
+        dbManager.insertTodo(todo);
     }
 
     private int readOptionUntilValid() {

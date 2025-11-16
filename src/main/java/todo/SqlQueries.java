@@ -26,4 +26,7 @@ public class SqlQueries {
     public static final String READ_TABS_WITHOUT_DONE =
         "SELECT * FROM tabs "
         + "WHERE id <> 1;";
+
+    public static final String INSERT_TODO =
+        "INSERT INTO todos (name, description, tabId, deadline) VALUES (?, ?, ?, ?);";
 }

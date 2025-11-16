@@ -2,6 +2,7 @@ package todo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
@@ -55,5 +56,20 @@ public class DbManager {
             e.printStackTrace(System.err);
         }
         return tabs;
+    }
+
+    public void insertTodo(Todo todo) {
+        try (
+            Connection connection = DriverManager.getConnection(dbUrl);
+            PreparedStatement pstmt = connection.prepareStatement(SqlQueries.INSERT_TODO);
+        ) {
+            pstmt.setString(1, todo.getName());
+            pstmt.setString(2, todo.getDescription());
+            pstmt.setInt(3, todo.getTabId());
+            pstmt.setString(4, todo.getDeadline());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
     }
 }
