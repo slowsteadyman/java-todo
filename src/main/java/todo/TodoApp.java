@@ -23,6 +23,7 @@ public class TodoApp {
         String name = readNameUntilValid();
         String description = View.todoDescriptionInput();
         int tabId = readTabIdUntilValid();
+        String deadline = readDeadlineUntilValid();
     }
 
     private int readOptionUntilValid() {
@@ -56,6 +57,18 @@ public class TodoApp {
                 String tabId = View.todoTabIdInput(tabs);
                 Validator.validateTodoTabId(tabId, tabs);
                 return Parser.parseTabId(tabId);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private String readDeadlineUntilValid() {
+        while (true) {
+            try {
+                String deadline = View.todoDeadlineInput();
+                Validator.validateTodoDeadline(deadline);
+                return deadline;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

@@ -34,4 +34,9 @@ public class View {
         }
         return Helper.readLine();
     }
+
+    public static String todoDeadlineInput() {
+        System.out.println("마감 기한을 입력해 주시기 바랍니다(형식: yyyyMMdd). 꼭 입력하지 않아도 됩니다.");
+        return Helper.readLine();
+    }
 }
