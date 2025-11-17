@@ -1,6 +1,7 @@
 package todo;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class TodoApp {
     private DbManager dbManager;
@@ -16,17 +17,11 @@ public class TodoApp {
         switch (option) {
             case 1:
                 createTodo();
+                break;
+            case 2:
+                readTodo();
+                break;
         }
-    }
-
-    private void createTodo() {
-        String name = readTodoNameUntilValid();
-        String description = View.readTodoDescription();
-        String tabId = readTodoTabIdUntilValidForCreate();
-        String deadline = readTodoDeadlineUntilValid();
-        Todo todo = new Todo(name, description, tabId, deadline);
-
-        dbManager.insertTodo(todo);
     }
 
     private int readOptionUntilValid() {
@@ -39,6 +34,16 @@ public class TodoApp {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void createTodo() {
+        String name = readTodoNameUntilValid();
+        String description = View.readTodoDescription();
+        String tabId = readTodoTabIdUntilValidForCreate();
+        String deadline = readTodoDeadlineUntilValid();
+        Todo todo = new Todo(name, description, tabId, deadline);
+
+        dbManager.insertTodo(todo);
     }
 
     private String readTodoNameUntilValid() {
@@ -73,6 +78,31 @@ public class TodoApp {
                 String deadline = View.readTodoDeadline();
                 Validator.validateTodoDeadline(deadline);
                 return deadline;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void readTodo() {
+        String tabId = readTodoTabIdUntilValidForRead();
+        List<TodoView> todos = dbManager.selectTodo(tabId);
+        View.printTodos(todos);
+    }
+
+    private String readTodoTabIdUntilValidForRead() {
+        return readTodoTabIdUntilValid(
+            "탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 전체 목록을 조회합니다."
+        );
+    }
+
+    private String readTodoTabIdUntilValid(String message) {
+        HashMap<String, String> tabs = dbManager.readTabsWithoutDone();
+        while (true) {
+            try {
+                String tabId = View.readTodoTabId(message, tabs);
+                Validator.validateTodoTabId(tabId, tabs);
+                return tabId;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

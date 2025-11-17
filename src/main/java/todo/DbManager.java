@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class DbManager {
     private static final String dbUrl = "jdbc:sqlite:todo.db";
@@ -76,5 +78,24 @@ public class DbManager {
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         }
+    }
+
+    public List<TodoView> selectTodo(String tabId) {
+        List<TodoView> todos = new ArrayList<>();
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl);
+            PreparedStatement pstmt = conn.prepareStatement(SqlQueries.SELECT_ALL_TODOS);
+            if (!tabId.isEmpty()) {
+                pstmt = conn.prepareStatement(SqlQueries.SELECT_SPECIFIC_TODOS);
+                pstmt.setString(1, tabId);
+            }
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                todos.add(new TodoView(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return todos;
     }
 }

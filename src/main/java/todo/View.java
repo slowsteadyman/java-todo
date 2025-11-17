@@ -1,6 +1,9 @@
 package todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class View {
@@ -36,5 +39,23 @@ public class View {
     public static String readTodoDeadline() {
         System.out.println("마감 기한을 입력해 주시기 바랍니다(형식: yyyyMMdd). 꼭 입력하지 않아도 됩니다.");
         return Helper.readLine();
+    }
+
+    public static void printTodos(List<TodoView> todos) {
+        String description;
+        String deadline;
+
+        for (TodoView todoView : todos) {
+            description = todoView.getDescription();
+            deadline = todoView.getDeadline();
+
+            System.out.printf("[%s] %s\n", todoView.getTabName(), todoView.getName());
+            if (!description.isEmpty()) {
+                System.out.printf("- %s ", description);
+            }
+            if (!deadline.isEmpty()) {
+                System.out.printf("(%s까지)\n", Helper.toIsoLocalDate(deadline));
+            }
+        }
     }
 }

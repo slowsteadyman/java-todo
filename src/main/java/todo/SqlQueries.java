@@ -29,4 +29,16 @@ public class SqlQueries {
 
     public static final String INSERT_TODO =
         "INSERT INTO todos (name, description, tabId, deadline) VALUES (?, ?, ?, ?);";
+
+    public static final String SELECT_ALL_TODOS =
+        "SELECT td.name, description, deadline, tb.name "
+            + "FROM todos td "
+            + "JOIN tabs tb ON td.tabid = tb.id "
+            + "WHERE td.tabid <> 1;";
+
+    public static final String SELECT_SPECIFIC_TODOS =
+        "SELECT td.name, description, deadline, tb.name "
+            + "FROM todos td "
+            + "JOIN tabs tb ON td.tabid = tb.id "
+            + "WHERE td.tabid = ?;";
 }
