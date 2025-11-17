@@ -59,17 +59,9 @@ public class TodoApp {
     }
 
     private String readTodoTabIdUntilValidForCreate() {
-        String message = "탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 '잡동사니 서랍' 탭으로 자동 분류됩니다.";
-        HashMap<String, String> tabs = dbManager.readTabsWithoutDone();
-        while (true) {
-            try {
-                String tabId = View.readTodoTabId(message, tabs);
-                Validator.validateTodoTabId(tabId, tabs);
-                return tabId;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return readTodoTabIdUntilValid(
+            "탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 '잡동사니 서랍' 탭으로 자동 분류됩니다."
+        );
     }
 
     private String readTodoDeadlineUntilValid() {
