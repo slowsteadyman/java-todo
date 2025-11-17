@@ -13,14 +13,20 @@ public class TodoApp {
     public void run() {
         dbManager.configureDefaultEnvironment();
 
-        int option = readOptionUntilValid();
-        switch (option) {
-            case 1:
-                createTodo();
-                break;
-            case 2:
-                readTodo();
-                break;
+        while (true) {
+            int option = readOptionUntilValid();
+            switch (option) {
+                case 0:
+                    return;
+                case 1:
+                    createTodo();
+                    break;
+                case 2:
+                    readTodo();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

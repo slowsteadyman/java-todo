@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Validator {
-    private static final String ERROR_INVALID_OPTION = "1,2,3,4 중 하나를 선택해 주시기 바랍니다.";
+    private static final String ERROR_INVALID_OPTION = "0,1,2,3,4 중 하나를 선택해 주시기 바랍니다.";
     private static final String ERROR_NULL_NAME = "할 일을 입력해 주시기 바랍니다.";
     private static final String ERROR_NOT_EXIST_TAB = "존재하지 않는 탭 번호입니다.";
     private static final String ERROR_DATEFORMAT = "유요하지 않은 날짜 형식입니다.";
@@ -17,7 +17,7 @@ public class Validator {
 
 
     public static void validateOption(String option) {
-        if (!option.matches("[1-4]")) {
+        if (!option.matches("[0-4]")) {
             throw new IllegalArgumentException(ERROR_INVALID_OPTION);
         }
     }
