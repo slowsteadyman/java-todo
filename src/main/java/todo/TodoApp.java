@@ -20,10 +20,10 @@ public class TodoApp {
     }
 
     private void createTodo() {
-        String name = readNameUntilValid();
-        String description = View.todoDescriptionInput();
-        int tabId = readTabIdUntilValid();
-        String deadline = readDeadlineUntilValid();
+        String name = readTodoNameUntilValid();
+        String description = View.readTodoDescription();
+        String tabId = readTodoTabIdUntilValidForCreate();
+        String deadline = readTodoDeadlineUntilValid();
         Todo todo = new Todo(name, description, tabId, deadline);
 
         dbManager.insertTodo(todo);
@@ -32,7 +32,7 @@ public class TodoApp {
     private int readOptionUntilValid() {
         while (true) {
             try {
-                String option = View.optionInput();
+                String option = View.readOption();
                 Validator.validateOption(option);
                 return Integer.parseInt(option);
             } catch (IllegalArgumentException e) {
@@ -41,10 +41,10 @@ public class TodoApp {
         }
     }
 
-    private String readNameUntilValid() {
+    private String readTodoNameUntilValid() {
         while (true) {
             try {
-                String name = View.todoNameInput();
+                String name = View.readTodoName();
                 Validator.validateTodoName(name);
                 return name;
             } catch (IllegalArgumentException e) {
@@ -53,23 +53,24 @@ public class TodoApp {
         }
     }
 
-    private int readTabIdUntilValid() {
+    private String readTodoTabIdUntilValidForCreate() {
+        String message = "탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 '잡동사니 서랍' 탭으로 자동 분류됩니다.";
         HashMap<String, String> tabs = dbManager.readTabsWithoutDone();
         while (true) {
             try {
-                String tabId = View.todoTabIdInput(tabs);
+                String tabId = View.readTodoTabId(message, tabs);
                 Validator.validateTodoTabId(tabId, tabs);
-                return Parser.parseTabId(tabId);
+                return tabId;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    private String readDeadlineUntilValid() {
+    private String readTodoDeadlineUntilValid() {
         while (true) {
             try {
-                String deadline = View.todoDeadlineInput();
+                String deadline = View.readTodoDeadline();
                 Validator.validateTodoDeadline(deadline);
                 return deadline;
             } catch (IllegalArgumentException e) {

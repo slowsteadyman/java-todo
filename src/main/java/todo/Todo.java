@@ -3,10 +3,10 @@ package todo;
 public class Todo {
     private String name;
     private String description;
-    private int tabId;
+    private String tabId;
     private String deadline;
 
-    public Todo(String name, String description, int tabId, String deadline) {
+    public Todo(String name, String description, String tabId, String deadline) {
         this.name = name;
         this.description = description;
         this.tabId = tabId;
@@ -21,7 +21,7 @@ public class Todo {
         return this.description;
     }
 
-    public int getTabId() {
+    public String getTabId() {
         return this.tabId;
     }
 

@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 .kotlin
 src/main/java/Sample.java
+todo.db
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

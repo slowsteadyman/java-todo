@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public class DbManager {
     private static final String dbUrl = "jdbc:sqlite:todo.db";
+    private static final String DEFAULT_TABID = "2";
 
     public void configureDefaultEnvironment() {
         this.createDefaultTable();
@@ -63,9 +64,13 @@ public class DbManager {
             Connection connection = DriverManager.getConnection(dbUrl);
             PreparedStatement pstmt = connection.prepareStatement(SqlQueries.INSERT_TODO);
         ) {
+            String tabId = todo.getTabId();
+            if (tabId.isEmpty()) {
+                tabId = DEFAULT_TABID;
+            }
             pstmt.setString(1, todo.getName());
             pstmt.setString(2, todo.getDescription());
-            pstmt.setInt(3, todo.getTabId());
+            pstmt.setString(3, tabId);
             pstmt.setString(4, todo.getDeadline());
             pstmt.executeUpdate();
         } catch (SQLException e) {
