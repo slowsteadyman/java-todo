@@ -1,14 +1,14 @@
 package todo;
 
 public class TodoView {
-    private String id;
+    private int id;
     private String name;
     private String description;
     private String deadline;
-    private String tabId;
+    private int tabId;
     private String tabName;
 
-    public TodoView(String id, String name, String description, String deadline, String tabId, String tabName) {
+    public TodoView(int id, String name, String description, String deadline, int tabId, String tabName) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -17,7 +17,7 @@ public class TodoView {
         this.tabName = tabName;
     }
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -33,7 +33,7 @@ public class TodoView {
         return this.deadline;
     }
 
-    public String getTabId() {
+    public int getTabId() {
         return this.tabId;
     }
 

@@ -1,21 +1,21 @@
 package todo;
 
 public class Todo {
-    private String id;
+    private int id;
     private String name;
     private String description;
-    private String tabId;
+    private int tabId;
     private String deadline;
 
-    public Todo(String name, String description, String tabId, String deadline) {
-        this.id = "";
+    public Todo(String name, String description, int tabId, String deadline) {
+        this.id = -1;
         this.name = name;
         this.description = description;
         this.tabId = tabId;
         this.deadline = deadline;
     }
 
-    public Todo(String id, String name, String description, String tabId, String deadline) {
+    public Todo(int id, String name, String description, int tabId, String deadline) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -23,7 +23,7 @@ public class Todo {
         this.deadline = deadline;
     }
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -35,7 +35,7 @@ public class Todo {
         return this.description;
     }
 
-    public String getTabId() {
+    public int getTabId() {
         return this.tabId;
     }
 

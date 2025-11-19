@@ -27,9 +27,9 @@ public class View {
         return Helper.readLine();
     }
 
-    public static String readTodoTabId(String message, HashMap<String, String> tabs) {
-        System.out.println(message);
-        for (Map.Entry<String, String> tab : tabs.entrySet()) {
+    public static String readTodoTabIdForCreate(HashMap<Integer, String> tabs) {
+        System.out.println("탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 '잡동사니 서랍'으로 분류됩니다.");
+        for (Map.Entry<Integer, String> tab : tabs.entrySet()) {
             System.out.println(tab.getKey() + ". " + tab.getValue());
         }
         return Helper.readLine();
@@ -37,6 +37,14 @@ public class View {
 
     public static String readTodoDeadline() {
         System.out.println("마감 기한을 입력해 주시기 바랍니다(형식: yyyyMMdd). 꼭 입력하지 않아도 됩니다.");
+        return Helper.readLine();
+    }
+
+    public static String readTodoTabIdForRead(HashMap<Integer, String> tabs) {
+        System.out.println("탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 전체 목록을 조회합니다.");
+        for (Map.Entry<Integer, String> tab : tabs.entrySet()) {
+            System.out.println(tab.getKey() + ". " + tab.getValue());
+        }
         return Helper.readLine();
     }
 
@@ -76,12 +84,12 @@ public class View {
         return terminalManager.readLine(description);
     }
 
-    public static String readTodoTabIdForUpdate(TerminalManager terminalManager, String tabId, HashMap<String, String> tabs) {
+    public static String readTodoTabIdForUpdate(TerminalManager terminalManager, int tabId, HashMap<Integer, String> tabs) {
         System.out.println("탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 '잡동사니 서랍' 탭으로 자동 분류됩니다.");
-        for (Map.Entry<String, String> tab : tabs.entrySet()) {
+        for (Map.Entry<Integer, String> tab : tabs.entrySet()) {
             System.out.println(tab.getKey() + ". " + tab.getValue());
         }
-        return terminalManager.readLine(tabId);
+        return terminalManager.readLine(String.format("%d", tabId));
     }
 
     public static String readTodoDeadlineForUpdate(TerminalManager terminalManager, String deadline) {

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DbManager {
     private static final String dbUrl = "jdbc:sqlite:todo.db";
-    private static final String DEFAULT_TABID = "2";
+    private static final int DEFAULT_TABID = 2;
 
     public void configureDefaultEnvironment() {
         this.createDefaultTable();
@@ -44,8 +44,8 @@ public class DbManager {
         }
     }
 
-    public HashMap<String, String> readTabsWithoutDone() {
-        HashMap<String, String> tabs = new HashMap<>();
+    public HashMap<Integer, String> readTabsWithoutDone() {
+        HashMap<Integer, String> tabs = new HashMap<>();
         try (
             Connection connection = DriverManager.getConnection(dbUrl);
             Statement statement = connection.createStatement();
@@ -53,7 +53,7 @@ public class DbManager {
             statement.setQueryTimeout(30);
             ResultSet rs = statement.executeQuery(SqlQueries.READ_TABS_WITHOUT_DONE);
             while (rs.next()) {
-                tabs.put(rs.getString(1), rs.getString(2));
+                tabs.put(rs.getInt(1), rs.getString(2));
             }
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -66,13 +66,13 @@ public class DbManager {
             Connection connection = DriverManager.getConnection(dbUrl);
             PreparedStatement pstmt = connection.prepareStatement(SqlQueries.INSERT_TODO);
         ) {
-            String tabId = todo.getTabId();
-            if (tabId.isEmpty()) {
-                tabId = DEFAULT_TABID;
-            }
             pstmt.setString(1, todo.getName());
             pstmt.setString(2, todo.getDescription());
-            pstmt.setString(3, tabId);
+            int tabId = todo.getTabId();
+            if (tabId == Parser.TAB_NOT_SELECTE) {
+                tabId = DEFAULT_TABID;
+            }
+            pstmt.setInt(3, tabId);
             pstmt.setString(4, todo.getDeadline());
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -80,20 +80,20 @@ public class DbManager {
         }
     }
 
-    public List<TodoView> selectTodo(String tabId) {
+    public List<TodoView> selectTodo(int tabId) {
         List<TodoView> todos = new ArrayList<>();
         try {
             Connection conn = DriverManager.getConnection(dbUrl);
             PreparedStatement pstmt = conn.prepareStatement(SqlQueries.SELECT_ALL_TODOS);
-            if (!tabId.isEmpty()) {
+            if (tabId != Parser.TAB_NOT_SELECTE) {
                 pstmt = conn.prepareStatement(SqlQueries.SELECT_SPECIFIC_TODOS);
-                pstmt.setString(1, tabId);
+                pstmt.setInt(1, tabId);
             }
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 todos.add(
-                    new TodoView(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6)));
+                    new TodoView(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6)));
             }
         } catch (SQLException e) {
             e.printStackTrace(System.err);
@@ -106,15 +106,15 @@ public class DbManager {
             Connection connection = DriverManager.getConnection(dbUrl);
             PreparedStatement pstmt = connection.prepareStatement(SqlQueries.UPDATE_TODO);
         ) {
-            String tabId = todo.getTabId();
-            if (tabId.isEmpty()) {
+            int tabId = todo.getTabId();
+            if (tabId == Parser.TAB_NOT_SELECTE) {
                 tabId = DEFAULT_TABID;
             }
             pstmt.setString(1, todo.getName());
             pstmt.setString(2, todo.getDescription());
-            pstmt.setString(3, tabId);
+            pstmt.setInt(3, tabId);
             pstmt.setString(4, todo.getDeadline());
-            pstmt.setString(5, todo.getId());
+            pstmt.setInt(5, todo.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.err);

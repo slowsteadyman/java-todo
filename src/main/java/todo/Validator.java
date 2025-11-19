@@ -16,7 +16,6 @@ public class Validator {
     private static final String ERROR_DATE_PAST = "오늘 또는 이후의 날짜를 입력해 주시기 바랍니다.";
     private static final String ERROR_INVALID_TODONUM = "유효하지 않은 할일 번호입니다.";
 
-
     public static void validateOption(String option) {
         if (!option.matches("[0-4]")) {
             throw new IllegalArgumentException(ERROR_INVALID_OPTION);
@@ -29,15 +28,20 @@ public class Validator {
         }
     }
 
-    public static void validateTodoTabId(String tabId, HashMap<String, String> tabs) {
-        if (!tabId.isEmpty()) {
-            if (tabs.get(tabId) == null) {
-                throw new IllegalArgumentException(ERROR_NOT_EXIST_TAB);
-            }
+    public static void validateTodoTabId(int tabId, HashMap<Integer, String> tabs) {
+        if (tabId == Parser.TAB_NOT_SELECTE) {
+            return;
+        }
+
+        if (tabs.get(tabId) == null) {
+            throw new IllegalArgumentException(ERROR_NOT_EXIST_TAB);
         }
     }
 
     public static void validateTodoDeadline(String deadline) {
+        if (deadline.isEmpty()) {
+            return;
+        }
         try {
             LocalDate now = LocalDate.now();
             LocalDate parsedDeadline = LocalDate.parse(deadline, DateTimeFormatter.BASIC_ISO_DATE);
