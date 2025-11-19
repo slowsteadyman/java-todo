@@ -14,6 +14,7 @@ public class Validator {
     private static final String ERROR_NOT_EXIST_TAB = "존재하지 않는 탭 번호입니다.";
     private static final String ERROR_DATEFORMAT = "유요하지 않은 날짜 형식입니다.";
     private static final String ERROR_DATE_PAST = "오늘 또는 이후의 날짜를 입력해 주시기 바랍니다.";
+    private static final String ERROR_INVALID_TODONUM = "유효하지 않은 할일 번호입니다.";
 
 
     public static void validateOption(String option) {
@@ -45,6 +46,13 @@ public class Validator {
             }
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException(ERROR_DATEFORMAT);
+        }
+    }
+
+    public static void validateTodoNum(String todoNum, int count) {
+        String regex = String.format("[0-%d]", count);
+        if (!todoNum.matches(regex)) {
+            throw new IllegalArgumentException(ERROR_INVALID_TODONUM);
         }
     }
 }

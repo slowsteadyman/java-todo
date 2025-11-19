@@ -91,11 +91,33 @@ public class DbManager {
             }
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                todos.add(new TodoView(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+                todos.add(
+                    new TodoView(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6)));
             }
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         }
         return todos;
+    }
+
+    public void updateTodo(Todo todo) {
+        try (
+            Connection connection = DriverManager.getConnection(dbUrl);
+            PreparedStatement pstmt = connection.prepareStatement(SqlQueries.UPDATE_TODO);
+        ) {
+            String tabId = todo.getTabId();
+            if (tabId.isEmpty()) {
+                tabId = DEFAULT_TABID;
+            }
+            pstmt.setString(1, todo.getName());
+            pstmt.setString(2, todo.getDescription());
+            pstmt.setString(3, tabId);
+            pstmt.setString(4, todo.getDeadline());
+            pstmt.setString(5, todo.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
     }
 }

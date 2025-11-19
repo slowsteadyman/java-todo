@@ -1,5 +1,19 @@
 plugins {
     id("java")
+    id("application")
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+}
+
+application {
+    mainClass.set("todo.Application")
+}
+
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
+}
+
+tasks.run.configure {
+    standardInput = System.`in`
 }
 
 group = "org.example"
@@ -14,6 +28,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("org.xerial:sqlite-jdbc:3.51.0.0")
+    implementation("org.jline:jline:3.30.0")
+    implementation("org.jline:jline-terminal-jni:3.30.0")
 }
 
 tasks.test {

@@ -5,9 +5,11 @@ import java.util.List;
 
 public class TodoApp {
     private DbManager dbManager;
+    private TerminalManager terminalManager;
 
-    public TodoApp(DbManager dbManager) {
+    public TodoApp(DbManager dbManager, TerminalManager terminalManager) {
         this.dbManager = dbManager;
+        this.terminalManager = terminalManager;
     }
 
     public void run() {
@@ -17,6 +19,7 @@ public class TodoApp {
             int option = readOptionUntilValid();
             switch (option) {
                 case 0:
+                    terminalManager.close();
                     return;
                 case 1:
                     createTodo();
@@ -24,6 +27,8 @@ public class TodoApp {
                 case 2:
                     readTodo();
                     break;
+                case 3:
+                    updateTodo();
                 default:
                     break;
             }
@@ -101,6 +106,71 @@ public class TodoApp {
                 String tabId = View.readTodoTabId(message, tabs);
                 Validator.validateTodoTabId(tabId, tabs);
                 return tabId;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void updateTodo() {
+        List<TodoView> todos = dbManager.selectTodo("");
+        View.printTodos(todos);
+        int todoNum = readTodoNumUntilValid(todos.size());
+        TodoView todoView = todos.get(todoNum);
+
+        String name = readTodoNameUntilValidForUpdate(todoView.getName());
+        String description = View.readTodoDescriptionForUpdate(terminalManager, todoView.getDescription());
+        String tabId = readTodoTabIdUntilValidForUpdate(todoView.getTabId());
+        String deadline = readTodoDeadlineUntilValidForUpdate(todoView.getDeadline());
+        Todo todo = new Todo(todoView.getId(), name, description, tabId, deadline);
+
+        dbManager.updateTodo(todo);
+    }
+
+    private int readTodoNumUntilValid(int count) {
+        while (true) {
+            try {
+                String todoNum = View.readTodoNum();
+                Validator.validateTodoNum(todoNum, count);
+                return Integer.parseInt(todoNum) - 1;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private String readTodoNameUntilValidForUpdate(String name) {
+        while (true) {
+            try {
+                String nameUpdated = View.reaadAdjustedTodoName(terminalManager, name);
+                Validator.validateTodoName(nameUpdated);
+                // terminal.flush();
+                return nameUpdated;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private String readTodoTabIdUntilValidForUpdate(String tabId) {
+        HashMap<String, String> tabs = dbManager.readTabsWithoutDone();
+        while (true) {
+            try {
+                String tabIdUpdated = View.readTodoTabIdForUpdate(terminalManager, tabId, tabs);
+                Validator.validateTodoTabId(tabIdUpdated, tabs);
+                return tabIdUpdated;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private String readTodoDeadlineUntilValidForUpdate(String deadline) {
+        while (true) {
+            try {
+                String deadlineUpdated = View.readTodoDeadlineForUpdate(terminalManager, deadline);
+                Validator.validateTodoDeadline(deadlineUpdated);
+                return deadlineUpdated;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
