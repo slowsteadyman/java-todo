@@ -124,13 +124,10 @@ public class TodoApp {
     }
 
     private void updateTodo() {
-        List<TodoView> todos = dbManager.selectTodo(Parser.TAB_NOT_SELECTE);
-        View.printTodos(todos);
-        int todoNum = readTodoNumUntilValid(todos.size());
-        if (todoNum == -1) {
+        TodoView todoView = selectTodo();
+        if (todoView == null) {
             return;
         }
-        TodoView todoView = todos.get(todoNum);
 
         String name = readTodoNameUntilValidForUpdate(todoView.getName());
         String description = View.readTodoDescriptionForUpdate(terminalManager, todoView.getDescription());
@@ -193,13 +190,11 @@ public class TodoApp {
     }
 
     private void deleteTodo() {
-        List<TodoView> todos = dbManager.selectTodo(Parser.TAB_NOT_SELECTE);
-        View.printTodos(todos);
-        int todoNum = readTodoNumUntilValid(todos.size());
-        if (todoNum == -1) {
+        TodoView todoView = selectTodo();
+        if (todoView == null) {
             return;
         }
-        int id = todos.get(todoNum).getId();
+        int id = todoView.getId();
         dbManager.deleteTodo(id);
     }
 
