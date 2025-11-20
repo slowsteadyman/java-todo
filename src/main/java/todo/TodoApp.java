@@ -29,6 +29,10 @@ public class TodoApp {
                     break;
                 case 3:
                     updateTodo();
+                    break;
+                case 4:
+                    deleteTodo();
+                    break;
                 default:
                     break;
             }
@@ -119,6 +123,9 @@ public class TodoApp {
         List<TodoView> todos = dbManager.selectTodo(Parser.TAB_NOT_SELECTE);
         View.printTodos(todos);
         int todoNum = readTodoNumUntilValid(todos.size());
+        if (todoNum == -1) {
+            return;
+        }
         TodoView todoView = todos.get(todoNum);
 
         String name = readTodoNameUntilValidForUpdate(todoView.getName());
@@ -179,5 +186,16 @@ public class TodoApp {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void deleteTodo() {
+        List<TodoView> todos = dbManager.selectTodo(Parser.TAB_NOT_SELECTE);
+        View.printTodos(todos);
+        int todoNum = readTodoNumUntilValid(todos.size());
+        if (todoNum == -1) {
+            return;
+        }
+        int id = todos.get(todoNum).getId();
+        dbManager.deleteTodo(id);
     }
 }

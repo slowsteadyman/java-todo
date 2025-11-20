@@ -70,7 +70,7 @@ public class View {
 
     public static String readTodoNum() {
         // 유효한 투두 아이디를 입력받아야 한다. 0을 입력할 경우, 수정하기를 종료한다.
-        System.out.println("할일 번호를 입력해 주시기 바랍니다. 0을 입력할 경우 수정하기를 종료합니다.");
+        System.out.println("할일 번호를 입력해 주시기 바랍니다. 0을 입력할 경우 종료합니다.");
         return Helper.readLine();
     }
 

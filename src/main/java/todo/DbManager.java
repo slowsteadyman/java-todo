@@ -120,4 +120,16 @@ public class DbManager {
             e.printStackTrace(System.err);
         }
     }
+
+    public void deleteTodo(int id) {
+        try (
+            Connection conn = DriverManager.getConnection(dbUrl);
+            PreparedStatement pstmt = conn.prepareStatement(SqlQueries.DELETE_TODO);
+        ) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+    }
 }

@@ -49,4 +49,7 @@ public class SqlQueries {
             + "tabId = ?,"
             + "deadline = ? "
             + "WHERE id = ?;";
+
+    public static final String DELETE_TODO =
+        "DELETE FROM todos WHERE id = ?;";
 }
