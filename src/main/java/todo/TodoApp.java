@@ -33,7 +33,11 @@ public class TodoApp {
                 case 4:
                     deleteTodo();
                     break;
-                default:
+                case 5:
+                    completeTodo();
+                    break;
+                case 6:
+                    readTodoDone();
                     break;
             }
         }
@@ -197,5 +201,28 @@ public class TodoApp {
         }
         int id = todos.get(todoNum).getId();
         dbManager.deleteTodo(id);
+    }
+
+    private void completeTodo() {
+        TodoView todoView = selectTodo();
+        if (todoView == null) {
+            return;
+        }
+        dbManager.completeTodo(todoView.getId());
+    }
+
+    private TodoView selectTodo() {
+        List<TodoView> todos = dbManager.selectTodo(Parser.TAB_NOT_SELECTE);
+        View.printTodos(todos);
+        int todoNum = readTodoNumUntilValid(todos.size());
+        if (todoNum == -1) {
+            return null;
+        }
+        return todos.get(todoNum);
+    }
+
+    private void readTodoDone() {
+        List<TodoView> todos = dbManager.selectTodo(DbManager.DONE_TABID);
+        View.printTodos(todos);
     }
 }

@@ -52,4 +52,9 @@ public class SqlQueries {
 
     public static final String DELETE_TODO =
         "DELETE FROM todos WHERE id = ?;";
+
+    public static final String COMPLETE_TODO =
+        "UPDATE todos SET "
+            + "tabId = 1 "
+            + "WHERE id = ?;";
 }

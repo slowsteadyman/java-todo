@@ -12,7 +12,8 @@ import java.util.List;
 
 public class DbManager {
     private static final String dbUrl = "jdbc:sqlite:todo.db";
-    private static final int DEFAULT_TABID = 2;
+    public static final int DEFAULT_TABID = 2;
+    public static final int DONE_TABID = 1;
 
     public void configureDefaultEnvironment() {
         this.createDefaultTable();
@@ -125,6 +126,18 @@ public class DbManager {
         try (
             Connection conn = DriverManager.getConnection(dbUrl);
             PreparedStatement pstmt = conn.prepareStatement(SqlQueries.DELETE_TODO);
+        ) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+    }
+
+    public void completeTodo(int id) {
+        try (
+            Connection conn = DriverManager.getConnection(dbUrl);
+            PreparedStatement pstmt = conn.prepareStatement(SqlQueries.COMPLETE_TODO);
         ) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();

@@ -12,6 +12,8 @@ public class View {
             2. 할 일 조회
             3. 할 일 수정
             4. 할 일 삭제
+            5. 할 일 완료
+            6. 완료된 할일 조회
             ** 0. 프로그램 종료
             """);
         return Helper.readLine();
