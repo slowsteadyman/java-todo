@@ -18,7 +18,11 @@ public class Validator {
     private static final String ERROR_INVALID_TODONUM = Theme.applyErrorBold("INVALID TODO NUMBER!");
 
     public static void validateOption(String option) {
-        if (!option.matches(String.format("-1|[0-%d]", NUM_OPTIONS))) {
+        if (!option.matches(String.format("\\d+"))) {
+            throw new IllegalArgumentException(ERROR_INVALID_OPTION);
+        }
+        int num = Integer.parseInt(option);
+        if (num < -1 || num > NUM_OPTIONS) {
             throw new IllegalArgumentException(ERROR_INVALID_OPTION);
         }
     }
@@ -55,9 +59,12 @@ public class Validator {
     }
 
     public static void validateTodoNum(String todoNum, int count) {
-        String regex = String.format("[0-%d]", count);
-        if (!todoNum.matches(regex)) {
-            throw new IllegalArgumentException(ERROR_INVALID_TODONUM);
+        if (!todoNum.matches(String.format("\\d+"))) {
+            throw new IllegalArgumentException(ERROR_INVALID_OPTION);
+        }
+        int num = Integer.parseInt(todoNum);
+        if (num < 0 || num > count) {
+            throw new IllegalArgumentException(ERROR_INVALID_OPTION);
         }
     }
 }
