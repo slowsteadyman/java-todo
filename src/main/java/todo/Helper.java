@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -29,6 +30,10 @@ public class Helper {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return null;
+    }
+
+    public static String longestNameLen(List<TodoView> todos) {
         return null;
     }
 }

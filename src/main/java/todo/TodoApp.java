@@ -67,6 +67,7 @@ public class TodoApp {
         Todo todo = new Todo(name, description, tabId, deadline);
 
         dbManager.insertTodo(todo);
+        View.printSuccess("create");
     }
 
     private String readTodoNameUntilValid() {
@@ -140,6 +141,7 @@ public class TodoApp {
         Todo todo = new Todo(todoView.getId(), name, description, tabId, deadline);
 
         dbManager.updateTodo(todo);
+        View.printSuccess("update");
     }
 
     private int readTodoNumUntilValid(int count) {
@@ -200,6 +202,7 @@ public class TodoApp {
         }
         int id = todoView.getId();
         dbManager.deleteTodo(id);
+        View.printSuccess("delete");
     }
 
     private void completeTodo() {
@@ -208,6 +211,7 @@ public class TodoApp {
             return;
         }
         dbManager.completeTodo(todoView.getId());
+        View.printSuccess("complete");
     }
 
     private TodoView selectTodo() {

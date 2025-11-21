@@ -10,12 +10,12 @@ import java.util.HashMap;
 
 public class Validator {
     private static final int NUM_OPTIONS = 6;
-    private static final String ERROR_INVALID_OPTION = "0,1,2,3,4 중 하나를 선택해 주시기 바랍니다.";
-    private static final String ERROR_NULL_NAME = "할 일을 입력해 주시기 바랍니다.";
-    private static final String ERROR_NOT_EXIST_TAB = "존재하지 않는 탭 번호입니다.";
-    private static final String ERROR_DATEFORMAT = "유요하지 않은 날짜 형식입니다.";
-    private static final String ERROR_DATE_PAST = "오늘 또는 이후의 날짜를 입력해 주시기 바랍니다.";
-    private static final String ERROR_INVALID_TODONUM = "유효하지 않은 할일 번호입니다.";
+    private static final String ERROR_INVALID_OPTION = Theme.applyErrorBold("INVALID OPTION NUMBER!");
+    private static final String ERROR_NULL_NAME = Theme.applyErrorBold("NAME NOT NULL!");
+    private static final String ERROR_NOT_EXIST_TAB = Theme.applyErrorBold("NOT EXIST TAB NUMBER!");
+    private static final String ERROR_DATEFORMAT = Theme.applyErrorBold("INVALID DATE FORMAT!");
+    private static final String ERROR_DATE_PAST = Theme.applyErrorBold("NO PAST DATE!");
+    private static final String ERROR_INVALID_TODONUM = Theme.applyErrorBold("INVALID TODO NUMBER!");
 
     public static void validateOption(String option) {
         if (!option.matches(String.format("-1|[0-%d]", NUM_OPTIONS))) {

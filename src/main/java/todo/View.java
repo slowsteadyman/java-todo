@@ -7,57 +7,65 @@ import java.util.Map;
 public class View {
     public static void printStartMessage() {
         System.out.println();
-        System.out.println("\u001B[1mWelcome\u001B[0m to Simple todo app!");
-        System.out.println("Enter \u001B[36;1m'0'\u001B[0m to see options");
+        System.out.printf("%s to simple todo app!\n", Theme.applyBold("Welcome"));
+        System.out.printf("Enter %s to see options\n", Theme.applyMainBold("'0'"));
     }
 
     public static String readOption() {
-        System.out.printf("\u001B[36;1m>\u001B[0m ");
+        System.out.printf(Theme.applyMainBold("> "));
         return Helper.readLine();
     }
 
     public static void printOptions() {
-        System.out.println("""
-            Option list
-            \u001B[1m1. create   todo
+        System.out.println("----------------------");
+        System.out.println(Theme.applyMainBold("Option list"));
+        System.out.println(Theme.applyBold("""
+            1. create   todo
             2. read     todo
             3. update   todo
             4. delete   todo
             5. complete todo
-            6. read completed todo\u001B[0m
+            6. read completed todo"""));
+        System.out.println("""
             ----------------------
             -1. exit
             0. see options""");
     }
 
     public static String readTodoName() {
-        System.out.println("할일 이름을 입력해 주시기 바랍니다.");
+        System.out.printf(Theme.applyBold("Enter name: "));
         return Helper.readLine();
     }
 
     public static String readTodoDescription() {
-        System.out.println("할일 설명을 입력해 주시기 바랍니다. 꼭 입력하지 않아도 됩니다.");
+        System.out.printf(Theme.applyBold("Enter description(optional): "));
         return Helper.readLine();
     }
 
     public static String readTodoTabIdForCreate(HashMap<Integer, String> tabs) {
-        System.out.println("탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 '잡동사니 서랍'으로 분류됩니다.");
-        for (Map.Entry<Integer, String> tab : tabs.entrySet()) {
-            System.out.println(tab.getKey() + ". " + tab.getValue());
-        }
+        printTabs(tabs);
+        System.out.printf(Theme.applyBold("Enter tab number(optional, default=2): "));
         return Helper.readLine();
     }
 
+    public static void printTabs(HashMap<Integer, String> tabs) {
+        System.out.println("----------------------");
+        System.out.println(Theme.applyMainBold("current tabs"));
+        for (Map.Entry<Integer, String> tab : tabs.entrySet()) {
+            String text = String.format("%d. %s", tab.getKey(), tab.getValue());
+            System.out.println(Theme.applyBold(text));
+        }
+        System.out.println("----------------------");
+    }
+
     public static String readTodoDeadline() {
-        System.out.println("마감 기한을 입력해 주시기 바랍니다(형식: yyyyMMdd). 꼭 입력하지 않아도 됩니다.");
+        System.out.printf(Theme.applyBold("Enter deadline(optional, format=yyyyMMdd): "));
         return Helper.readLine();
     }
 
     public static String readTodoTabIdForRead(HashMap<Integer, String> tabs) {
-        System.out.println("탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 전체 목록을 조회합니다.");
-        for (Map.Entry<Integer, String> tab : tabs.entrySet()) {
-            System.out.println(tab.getKey() + ". " + tab.getValue());
-        }
+        printTabs(tabs);
+        System.out.printf(Theme.applyBold("Enter tab number(optional, empty=ALL tabs): "));
         return Helper.readLine();
     }
 
@@ -82,31 +90,32 @@ public class View {
     }
 
     public static String readTodoNum() {
-        // 유효한 투두 아이디를 입력받아야 한다. 0을 입력할 경우, 수정하기를 종료한다.
-        System.out.println("할일 번호를 입력해 주시기 바랍니다. 0을 입력할 경우 종료합니다.");
+        System.out.printf(Theme.applyBold("Enter Todo Number(0=cancel): "));
         return Helper.readLine();
     }
 
     public static String reaadAdjustedTodoName(TerminalManager terminalManager, String name) {
-        System.out.println("할일 이름을 수정해 주시기 바랍니다.");
+        System.out.printf(Theme.applyBold("Update name: "));
         return terminalManager.readLine(name);
     }
 
     public static String readTodoDescriptionForUpdate(TerminalManager terminalManager, String description) {
-        System.out.println("할일 설명을 수정해 주시기 바랍니다. 꼭 입력하지 않아도 됩니다.");
+        System.out.printf(Theme.applyBold("Update description(optional): "));
         return terminalManager.readLine(description);
     }
 
     public static String readTodoTabIdForUpdate(TerminalManager terminalManager, int tabId, HashMap<Integer, String> tabs) {
-        System.out.println("탭 번호를 입력해 주시기 바랍니다. 입력하지 않을 경우 '잡동사니 서랍' 탭으로 자동 분류됩니다.");
-        for (Map.Entry<Integer, String> tab : tabs.entrySet()) {
-            System.out.println(tab.getKey() + ". " + tab.getValue());
-        }
+        printTabs(tabs);
+        System.out.printf(Theme.applyBold("Update tab number(optional, default=2): "));
         return terminalManager.readLine(String.format("%d", tabId));
     }
 
     public static String readTodoDeadlineForUpdate(TerminalManager terminalManager, String deadline) {
-        System.out.println("마감 기한을 입력해 주시기 바랍니다(형식: yyyyMMdd). 꼭 입력하지 않아도 됩니다.");
+        System.out.printf(Theme.applyBold("Update deadline(optional, format=yyyyMMdd): "));
         return terminalManager.readLine(deadline);
+    }
+
+    public static void printSuccess(String task) {
+        System.out.println(Theme.applySubmainBoldItalic(String.format("success %s", task)));
     }
 }

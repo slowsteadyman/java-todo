@@ -1,5 +1,7 @@
 package todo;
 
+import java.util.HashMap;
+
 public class TodoView {
     private int id;
     private String name;
