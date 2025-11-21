@@ -14,13 +14,17 @@ public class TodoApp {
 
     public void run() {
         dbManager.configureDefaultEnvironment();
+        View.printStartMessage();
 
         while (true) {
             int option = readOptionUntilValid();
             switch (option) {
-                case 0:
+                case -1:
                     terminalManager.close();
                     return;
+                case 0:
+                    View.printOptions();
+                    break;
                 case 1:
                     createTodo();
                     break;

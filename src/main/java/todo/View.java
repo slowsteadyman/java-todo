@@ -5,18 +5,29 @@ import java.util.List;
 import java.util.Map;
 
 public class View {
+    public static void printStartMessage() {
+        System.out.println();
+        System.out.println("\u001B[1mWelcome\u001B[0m to Simple todo app!");
+        System.out.println("Enter \u001B[36;1m'0'\u001B[0m to see options");
+    }
+
     public static String readOption() {
-        System.out.println("""
-            원하는 옵션을 선택해 주시기 바랍니다.
-            1. 할 일 추가
-            2. 할 일 조회
-            3. 할 일 수정
-            4. 할 일 삭제
-            5. 할 일 완료
-            6. 완료된 할일 조회
-            ** 0. 프로그램 종료
-            """);
+        System.out.printf("\u001B[36;1m>\u001B[0m ");
         return Helper.readLine();
+    }
+
+    public static void printOptions() {
+        System.out.println("""
+            Option list
+            \u001B[1m1. create   todo
+            2. read     todo
+            3. update   todo
+            4. delete   todo
+            5. complete todo
+            6. read completed todo\u001B[0m
+            ----------------------
+            -1. exit
+            0. see options""");
     }
 
     public static String readTodoName() {

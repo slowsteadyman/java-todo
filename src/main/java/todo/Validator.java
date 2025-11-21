@@ -18,7 +18,7 @@ public class Validator {
     private static final String ERROR_INVALID_TODONUM = "유효하지 않은 할일 번호입니다.";
 
     public static void validateOption(String option) {
-        if (!option.matches(String.format("[0-%d]", NUM_OPTIONS))) {
+        if (!option.matches(String.format("-1|[0-%d]", NUM_OPTIONS))) {
             throw new IllegalArgumentException(ERROR_INVALID_OPTION);
         }
     }
