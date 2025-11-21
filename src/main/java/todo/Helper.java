@@ -33,7 +33,24 @@ public class Helper {
         return null;
     }
 
-    public static String longestNameLen(List<TodoView> todos) {
-        return null;
+    public static TodoLongestFieldLen findTodoLongestFieldLen(List<TodoView> todos) {
+        TodoLongestFieldLen todoLongestFieldLen = new TodoLongestFieldLen();
+
+        for (TodoView todoView : todos) {
+            if (todoView.idLen() > todoLongestFieldLen.getIdLen()) {
+                todoLongestFieldLen.setIdLen(todoView.idLen());
+            }
+            if (todoView.nameLen() > todoLongestFieldLen.getNameLen()) {
+                todoLongestFieldLen.setNameLen(todoView.nameLen());
+            }
+            if (todoView.descriptionLen() > todoLongestFieldLen.getDescriptionLen()) {
+                todoLongestFieldLen.setDescriptionLen(todoView.descriptionLen());
+            }
+            if (todoView.tabNameLen() > todoLongestFieldLen.getTabNameLen()) {
+                todoLongestFieldLen.setTabNameLen(todoView.tabNameLen());
+            }
+        }
+
+        return todoLongestFieldLen;
     }
 }

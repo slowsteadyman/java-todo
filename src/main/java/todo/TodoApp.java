@@ -60,6 +60,7 @@ public class TodoApp {
     }
 
     private void createTodo() {
+        View.printCurrentOption("create");
         String name = readTodoNameUntilValid();
         String description = View.readTodoDescription();
         int tabId = readTodoTabIdUntilValidForCreate();
@@ -109,6 +110,7 @@ public class TodoApp {
     }
 
     private void readTodo() {
+        View.printCurrentOption("read");
         int tabId = readTodoTabIdUntilValidForRead();
         List<TodoView> todos = dbManager.selectTodo(tabId);
         View.printTodos(todos);
@@ -129,6 +131,7 @@ public class TodoApp {
     }
 
     private void updateTodo() {
+        View.printCurrentOption("update");
         TodoView todoView = selectTodo();
         if (todoView == null) {
             return;
@@ -196,6 +199,7 @@ public class TodoApp {
     }
 
     private void deleteTodo() {
+        View.printCurrentOption("delete");
         TodoView todoView = selectTodo();
         if (todoView == null) {
             return;
@@ -206,6 +210,7 @@ public class TodoApp {
     }
 
     private void completeTodo() {
+        View.printCurrentOption("complete");
         TodoView todoView = selectTodo();
         if (todoView == null) {
             return;
@@ -225,6 +230,7 @@ public class TodoApp {
     }
 
     private void readTodoDone() {
+        View.printCurrentOption("completed");
         List<TodoView> todos = dbManager.selectTodo(DbManager.DONE_TABID);
         View.printTodos(todos);
     }

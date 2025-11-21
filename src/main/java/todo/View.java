@@ -29,7 +29,8 @@ public class View {
         System.out.println("""
             ----------------------
             -1. exit
-            0. see options""");
+            0. see options
+            """);
     }
 
     public static String readTodoName() {
@@ -70,23 +71,33 @@ public class View {
     }
 
     public static void printTodos(List<TodoView> todos) {
-        String description;
-        String deadline;
         int index = 1;
+        TodoLongestFieldLen todoLongestFieldLen = Helper.findTodoLongestFieldLen(todos);
 
+        printTodoField(todoLongestFieldLen);
         for (TodoView todoView : todos) {
-            description = todoView.getDescription();
-            deadline = todoView.getDeadline();
-
-            System.out.printf("#%02d [%s] %s\n", index, todoView.getTabName(), todoView.getName());
-            if (!description.isEmpty()) {
-                System.out.printf("- %s ", description);
-            }
-            if (!deadline.isEmpty()) {
-                System.out.printf("(%s까지)\n", Helper.toIsoLocalDate(deadline));
-            }
+            System.out.printf("%" + todoLongestFieldLen.getIdLen() + "d ", index);
+            System.out.printf("%-" + todoLongestFieldLen.getNameLen() + "s ", todoView.getName());
+            System.out.printf("%-" + todoLongestFieldLen.getDescriptionLen() + "s ", todoView.getDescription());
+            System.out.printf("%10s ", todoView.getDeadline());
+            System.out.printf("%" + todoLongestFieldLen.getTabNameLen() + "s\n", todoView.getTabName());
             index++;
         }
+        System.out.println();
+    }
+
+    public static void printTodoField(TodoLongestFieldLen todoLongestFieldLen) {
+        String id = String.format("%" + todoLongestFieldLen.getIdLen() + "s ", "ID");
+        String name = String.format("%-" + todoLongestFieldLen.getNameLen() + "s ", "Name");
+        String description = String.format("%-" + todoLongestFieldLen.getDescriptionLen() + "s ", "Description");
+        String deadline = String.format("%10s ", "Deadline");
+        String tabName = String.format("%" + todoLongestFieldLen.getTabNameLen() + "s\n", "TabName");
+
+        System.out.printf(Theme.applyGrayUnderline(id));
+        System.out.printf(Theme.applyGrayUnderline(name));
+        System.out.printf(Theme.applyGrayUnderline(description));
+        System.out.printf(Theme.applyGrayUnderline(deadline));
+        System.out.printf(Theme.applyGrayUnderline(tabName));
     }
 
     public static String readTodoNum() {
@@ -117,5 +128,11 @@ public class View {
 
     public static void printSuccess(String task) {
         System.out.println(Theme.applySubmainBoldItalic(String.format("success %s", task)));
+        System.out.println();
+    }
+
+    public static void printCurrentOption(String task) {
+        System.out.println();
+        System.out.println(Theme.applySkyblueBackBold(String.format("todo %s", task)));
     }
 }

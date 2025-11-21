@@ -42,4 +42,20 @@ public class TodoView {
     public String getTabName() {
         return this.tabName;
     }
+
+    public int idLen() {
+        return Integer.toString(this.getId()).length();
+    }
+
+    public int nameLen() {
+        return this.getName().length();
+    }
+
+    public int descriptionLen() {
+        return this.getDescription().length();
+    }
+
+    public int tabNameLen() {
+        return this.getTabName().length();
+    }
 }
