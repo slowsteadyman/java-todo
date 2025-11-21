@@ -1,49 +1,37 @@
 package todo;
 
 public class Theme {
-    private static final int CYAN = 36;
-    private static final int BRIGHT_CYAN = 96;
-    private static final int MAGENTA = 35;
-    private static final int GRAY = 90;
-    private static final int BRIGHT_BLUE_BACKGROUND = 44;
-    private static final int SKYBLUE_BACKGROUND = 75;
-    private static final int BOLD = 1;
-    private static final int ITALIC = 3;
-    private static final int UNDERLINE = 4;
+    private static final String CYAN = "\u001B[36m";
+    private static final String BRIGHT_CYAN = "\u001B[96m";
+    private static final String MAGENTA = "\u001B[35m";
+    private static final String GRAY = "\u001B[90m";
+    private static final String SKYBLUE_BACKGROUND = "\u001B[48;5;75m";
+    private static final String BOLD = "\u001B[1m";
+    private static final String ITALIC = "\u001B[3m";
+    private static final String UNDERLINE = "\u001B[4m";
     private static final String RESET = "\u001B[0m";
 
     public static String applyMainBold(String text) {
-        String prefix = String.format("\u001B[%d;%dm", CYAN, BOLD);
-        return String.format("%s%s%s", prefix, text, RESET);
+        return CYAN + BOLD + text + RESET;
     }
 
     public static String applyErrorBold(String text) {
-        String prefix = String.format("\u001B[%d;%dm", MAGENTA, BOLD);
-        return String.format("%s%s%s", prefix, text, RESET);
+        return MAGENTA + BOLD + text + RESET;
     }
 
     public static String applyBold(String text) {
-        String prefix = String.format("\u001B[%dm", BOLD);
-        return String.format("%s%s%s", prefix, text, RESET);
+        return BOLD + text + RESET;
     }
 
     public static String applySubmainBoldItalic(String text) {
-        String prefix = String.format("\u001B[%d;%d;%dm", BOLD, ITALIC, BRIGHT_CYAN);
-        return String.format("%s%s%s", prefix, text, RESET);
+        return BRIGHT_CYAN + BOLD + ITALIC + text + RESET;
     }
 
     public static String applyGrayUnderline(String text) {
-        String prefix = String.format("\u001B[%d;%dm", UNDERLINE, GRAY);
-        return String.format("%s%s%s", prefix, text, RESET);
-    }
-
-    public static String applyBrightBlueBackBold(String text) {
-        String prefix = String.format("\u001B[%d;%dm", BRIGHT_BLUE_BACKGROUND, BOLD);
-        return String.format("%s%s%s", prefix, text, RESET);
+        return GRAY + UNDERLINE + text + RESET;
     }
 
     public static String applySkyblueBackBold(String text) {
-        String prefix = String.format("\u001B[48;5;%d;%dm", SKYBLUE_BACKGROUND, BOLD);
-        return String.format("%s%s%s", prefix, text, RESET);
+        return SKYBLUE_BACKGROUND + BOLD + text + RESET;
     }
 }
