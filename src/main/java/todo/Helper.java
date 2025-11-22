@@ -3,13 +3,8 @@ package todo;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
@@ -37,20 +32,31 @@ public class Helper {
         TodoLongestFieldLen todoLongestFieldLen = new TodoLongestFieldLen();
 
         for (TodoView todoView : todos) {
-            if (todoView.idLen() > todoLongestFieldLen.getIdLen()) {
-                todoLongestFieldLen.setIdLen(todoView.idLen());
+            if (todoView.idLen() > todoLongestFieldLen.getId()) {
+                todoLongestFieldLen.setId(todoView.idLen());
             }
-            if (todoView.nameLen() > todoLongestFieldLen.getNameLen()) {
-                todoLongestFieldLen.setNameLen(todoView.nameLen());
+            if (todoView.getNameLen() > todoLongestFieldLen.getName()) {
+                todoLongestFieldLen.setName(todoView.getNameLen());
             }
-            if (todoView.descriptionLen() > todoLongestFieldLen.getDescriptionLen()) {
-                todoLongestFieldLen.setDescriptionLen(todoView.descriptionLen());
+            if (todoView.getDescriptionLen() > todoLongestFieldLen.getDescription()) {
+                todoLongestFieldLen.setDescription(todoView.getDescriptionLen());
             }
-            if (todoView.tabNameLen() > todoLongestFieldLen.getTabNameLen()) {
-                todoLongestFieldLen.setTabNameLen(todoView.tabNameLen());
+            if (todoView.getTabNameLen() > todoLongestFieldLen.getTabName()) {
+                todoLongestFieldLen.setTabName(todoView.getTabNameLen());
             }
         }
 
         return todoLongestFieldLen;
+    }
+
+    public static int hangulCount(String s) {
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if ((c >= '\uAC00' && c <= '\uD7A3') || (c >= '\u3130' && c <= '\u318F')) {
+                count++;
+            }
+        }
+        return count;
     }
 }

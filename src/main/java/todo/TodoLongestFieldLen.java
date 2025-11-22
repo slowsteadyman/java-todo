@@ -1,47 +1,47 @@
 package todo;
 
 public class TodoLongestFieldLen {
-    private int idLen;
-    private int nameLen;
-    private int descriptionLen;
-    private int tabNameLen;
+    private int id;
+    private int name;
+    private int description;
+    private int tabName;
 
     public TodoLongestFieldLen() {
-        this.idLen = "id".length();
-        this.nameLen = "name".length();
-        this.descriptionLen = "description".length();
-        this.tabNameLen = "tabName".length();
+        this.id = "id".length();
+        this.name = "name".length();
+        this.description = "description".length();
+        this.tabName = "tabName".length();
     }
 
-    public int getIdLen() {
-        return this.idLen;
+    public int getId() {
+        return this.id;
     }
 
-    public void setIdLen(int len) {
-        this.idLen = len;
+    public void setId(int len) {
+        this.id = len;
     }
 
-    public int getNameLen() {
-        return this.nameLen;
+    public int getName() {
+        return this.name;
     }
 
-    public void setNameLen(int len) {
-        this.nameLen = len;
+    public void setName(int len) {
+        this.name = len;
     }
 
-    public int getDescriptionLen() {
-        return this.descriptionLen;
+    public int getDescription() {
+        return this.description;
     }
 
-    public void setDescriptionLen(int len) {
-        this.descriptionLen = len;
+    public void setDescription(int len) {
+        this.description = len;
     }
 
-    public int getTabNameLen() {
-        return this.tabNameLen;
+    public int getTabName() {
+        return this.tabName;
     }
 
-    public void setTabNameLen(int len) {
-        this.tabNameLen = len;
+    public void setTabName(int len) {
+        this.tabName = len;
     }
 }

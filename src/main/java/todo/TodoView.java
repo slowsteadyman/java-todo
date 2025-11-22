@@ -1,7 +1,5 @@
 package todo;
 
-import java.util.HashMap;
-
 public class TodoView {
     private int id;
     private String name;
@@ -44,18 +42,30 @@ public class TodoView {
     }
 
     public int idLen() {
-        return Integer.toString(this.getId()).length();
+        return Integer.toString(this.id).length();
     }
 
-    public int nameLen() {
-        return this.getName().length();
+    public int getNameHangulCount() {
+        return Helper.hangulCount(this.name);
     }
 
-    public int descriptionLen() {
-        return this.getDescription().length();
+    public int getNameLen() {
+        return this.name.length() + this.getNameHangulCount();
     }
 
-    public int tabNameLen() {
-        return this.getTabName().length();
+    public int getDescriptionHangulCount() {
+        return Helper.hangulCount(this.description);
+    }
+
+    public int getDescriptionLen() {
+        return this.description.length() + this.getDescriptionHangulCount();
+    }
+
+    public int getTabNameHangulCount() {
+        return Helper.hangulCount(this.tabName);
+    }
+
+    public int getTabNameLen() {
+        return this.tabName.length() + this.getTabNameHangulCount();
     }
 }

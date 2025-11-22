@@ -76,22 +76,25 @@ public class View {
 
         printTodoField(todoLongestFieldLen);
         for (TodoView todoView : todos) {
-            System.out.printf("%" + todoLongestFieldLen.getIdLen() + "d ", index);
-            System.out.printf("%-" + todoLongestFieldLen.getNameLen() + "s ", todoView.getName());
-            System.out.printf("%-" + todoLongestFieldLen.getDescriptionLen() + "s ", todoView.getDescription());
-            System.out.printf("%10s ", todoView.getDeadline());
-            System.out.printf("%" + todoLongestFieldLen.getTabNameLen() + "s\n", todoView.getTabName());
+            System.out.printf("%" + todoLongestFieldLen.getId() + "d ", index);
+            System.out.printf("%-" + (todoLongestFieldLen.getName() - todoView.getNameHangulCount()) +
+                "s ", todoView.getName());
+            System.out.printf("%-" + (todoLongestFieldLen.getDescription() - todoView.getDescriptionHangulCount()) +
+                "s ", todoView.getDescription());
+            System.out.printf("%-10s ", todoView.getDeadline());
+            System.out.printf("%" + (todoLongestFieldLen.getTabName() - todoView.getTabNameHangulCount()) +
+                "s\n", todoView.getTabName());
             index++;
         }
         System.out.println();
     }
 
     public static void printTodoField(TodoLongestFieldLen todoLongestFieldLen) {
-        String id = String.format("%" + todoLongestFieldLen.getIdLen() + "s ", "ID");
-        String name = String.format("%-" + todoLongestFieldLen.getNameLen() + "s ", "Name");
-        String description = String.format("%-" + todoLongestFieldLen.getDescriptionLen() + "s ", "Description");
-        String deadline = String.format("%10s ", "Deadline");
-        String tabName = String.format("%" + todoLongestFieldLen.getTabNameLen() + "s\n", "TabName");
+        String id = String.format("%" + todoLongestFieldLen.getId() + "s ", "ID");
+        String name = String.format("%-" + todoLongestFieldLen.getName() + "s ", "Name");
+        String description = String.format("%-" + todoLongestFieldLen.getDescription() + "s ", "Description");
+        String deadline = String.format("%-10s ", "Deadline");
+        String tabName = String.format("%" + todoLongestFieldLen.getTabName() + "s\n", "TabName");
 
         System.out.printf(Theme.applyGrayUnderline(id));
         System.out.printf(Theme.applyGrayUnderline(name));
@@ -115,7 +118,8 @@ public class View {
         return terminalManager.readLine(description);
     }
 
-    public static String readTodoTabIdForUpdate(TerminalManager terminalManager, int tabId, HashMap<Integer, String> tabs) {
+    public static String readTodoTabIdForUpdate(TerminalManager terminalManager, int tabId,
+                                                HashMap<Integer, String> tabs) {
         printTabs(tabs);
         System.out.printf(Theme.applyBold("Update tab number(optional, default=2): "));
         return terminalManager.readLine(String.format("%d", tabId));
