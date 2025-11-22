@@ -15,6 +15,9 @@ public class Helper {
     }
 
     public static String toIsoLocalDate(String basicIsoDate) {
+        if (basicIsoDate.isEmpty()) {
+            return "";
+        }
         LocalDate localDate = LocalDate.parse(basicIsoDate, DateTimeFormatter.BASIC_ISO_DATE);
         return localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }

@@ -81,7 +81,7 @@ public class View {
                 "s ", todoView.getName());
             System.out.printf("%-" + (todoLongestFieldLen.getDescription() - todoView.getDescriptionHangulCount()) +
                 "s ", todoView.getDescription());
-            System.out.printf("%-10s ", todoView.getDeadline());
+            System.out.printf("%-10s ", Helper.toIsoLocalDate(todoView.getDeadline()));
             System.out.printf("%" + (todoLongestFieldLen.getTabName() - todoView.getTabNameHangulCount()) +
                 "s\n", todoView.getTabName());
             index++;
