@@ -145,4 +145,16 @@ public class DbManager {
             e.printStackTrace(System.err);
         }
     }
+
+    public void insertTab(Tab tab) {
+        try (
+            Connection connection = DriverManager.getConnection(dbUrl);
+            PreparedStatement pstmt = connection.prepareStatement(SqlQueries.INSERT_TAB);
+        ) {
+            pstmt.setString(1, tab.getName());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+    }
 }

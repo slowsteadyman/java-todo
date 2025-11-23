@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Validator {
-    private static final int NUM_OPTIONS = 6;
+    private static final int NUM_OPTIONS = 7;
     private static final String ERROR_INVALID_OPTION = Theme.applyErrorBold("INVALID OPTION NUMBER!");
     private static final String ERROR_NULL_NAME = Theme.applyErrorBold("NAME NOT NULL!");
     private static final String ERROR_NOT_EXIST_TAB = Theme.applyErrorBold("NOT EXIST TAB NUMBER!");
@@ -60,11 +60,11 @@ public class Validator {
 
     public static void validateTodoNum(String todoNum, int count) {
         if (!todoNum.matches(String.format("\\d+"))) {
-            throw new IllegalArgumentException(ERROR_INVALID_OPTION);
+            throw new IllegalArgumentException(ERROR_INVALID_TODONUM);
         }
         int num = Integer.parseInt(todoNum);
         if (num < 0 || num > count) {
-            throw new IllegalArgumentException(ERROR_INVALID_OPTION);
+            throw new IllegalArgumentException(ERROR_INVALID_TODONUM);
         }
     }
 }

@@ -57,4 +57,7 @@ public class SqlQueries {
         "UPDATE todos SET "
             + "tabId = 1 "
             + "WHERE id = ?;";
+
+    public static final String INSERT_TAB =
+        "INSERT INTO tabs (name) VALUES (?);";
 }

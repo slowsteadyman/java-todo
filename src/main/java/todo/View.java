@@ -25,7 +25,8 @@ public class View {
             3. update   todo
             4. delete   todo
             5. complete todo
-            6. read completed todo"""));
+            6. read completed todo
+            7. create tab"""));
         System.out.println("""
             ----------------------
             -1. exit

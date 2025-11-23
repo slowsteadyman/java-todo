@@ -43,6 +43,9 @@ public class TodoApp {
                 case 6:
                     readTodoDone();
                     break;
+                case 7:
+                    createTab();
+                    break;
             }
         }
     }
@@ -61,7 +64,7 @@ public class TodoApp {
 
     private void createTodo() {
         View.printCurrentOption("create");
-        String name = readTodoNameUntilValid();
+        String name = readNameUntilValid();
         String description = View.readTodoDescription();
         int tabId = readTodoTabIdUntilValidForCreate();
         String deadline = readTodoDeadlineUntilValid();
@@ -71,7 +74,7 @@ public class TodoApp {
         View.printSuccess("create");
     }
 
-    private String readTodoNameUntilValid() {
+    private String readNameUntilValid() {
         while (true) {
             try {
                 String name = View.readTodoName();
@@ -233,5 +236,13 @@ public class TodoApp {
         View.printCurrentOption("completed");
         List<TodoView> todos = dbManager.selectTodo(DbManager.DONE_TABID);
         View.printTodos(todos);
+    }
+
+    private void createTab() {
+        String name = readNameUntilValid();
+        Tab tab = new Tab(name);
+
+        dbManager.insertTab(tab);
+        View.printSuccess("create");
     }
 }
