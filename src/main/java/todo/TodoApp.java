@@ -69,7 +69,7 @@ public class TodoApp {
     }
 
     private void createTodo() {
-        View.printCurrentOption("create");
+        View.printCurrentOption("create todo");
         String name = readNameUntilValid();
         String description = View.readTodoDescription();
         int tabId = readTodoTabIdUntilValidForCreate();
@@ -119,7 +119,7 @@ public class TodoApp {
     }
 
     private void readTodo() {
-        View.printCurrentOption("read");
+        View.printCurrentOption("read todo");
         int tabId = readTodoTabIdUntilValidForRead();
         List<TodoView> todos = dbManager.selectTodo(tabId);
         View.printTodos(todos);
@@ -140,7 +140,7 @@ public class TodoApp {
     }
 
     private void updateTodo() {
-        View.printCurrentOption("update");
+        View.printCurrentOption("update todo");
         TodoView todoView = selectTodo();
         if (todoView == null) {
             return;
@@ -208,7 +208,7 @@ public class TodoApp {
     }
 
     private void deleteTodo() {
-        View.printCurrentOption("delete");
+        View.printCurrentOption("delete todo");
         TodoView todoView = selectTodo();
         if (todoView == null) {
             return;
@@ -219,7 +219,7 @@ public class TodoApp {
     }
 
     private void completeTodo() {
-        View.printCurrentOption("complete");
+        View.printCurrentOption("complete todo");
         TodoView todoView = selectTodo();
         if (todoView == null) {
             return;
@@ -239,12 +239,13 @@ public class TodoApp {
     }
 
     private void readTodoDone() {
-        View.printCurrentOption("completed");
+        View.printCurrentOption("completed todo");
         List<TodoView> todos = dbManager.selectTodo(DbManager.DONE_TABID);
         View.printTodos(todos);
     }
 
     private void createTab() {
+        View.printCurrentOption("create tab");
         String name = readNameUntilValid();
         Tab tab = new Tab(name);
 
@@ -253,6 +254,7 @@ public class TodoApp {
     }
 
     private void updateTab() {
+        View.printCurrentOption("update tab");
         Tab tab = selectTab();
         if (tab == null) {
             return;
@@ -261,6 +263,7 @@ public class TodoApp {
         String name = readNameUntilValidForUpdate(tab.getName());
         tab.setName(name);
         dbManager.updateTab(tab);
+        View.printSuccess("update");
     }
 
     private Tab selectTab() {
@@ -285,11 +288,13 @@ public class TodoApp {
     }
 
     private void deleteTab() {
+        View.printCurrentOption("delete todo");
         Tab tab = selectTab();
         if (tab == null) {
             return;
         }
         int id = tab.getId();
         dbManager.deleteTab(id);
+        View.printSuccess("delete");
     }
 }

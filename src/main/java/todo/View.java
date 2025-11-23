@@ -146,6 +146,6 @@ public class View {
 
     public static void printCurrentOption(String task) {
         System.out.println();
-        System.out.println(Theme.applySkyblueBackBold(String.format("todo %s", task)));
+        System.out.println(Theme.applySkyblueBackBold(String.format("%s", task)));
     }
 }
