@@ -35,3 +35,16 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveBaseName.set("java-todo")
+    archiveClassifier.set("all")
+    archiveVersion.set("1.0-SNAPSHOT")
+
+    // release 폴더로 출력
+    destinationDirectory.set(file("${projectDir}/release"))
+
+    manifest {
+        attributes["Main-Class"] = "todo.Application"
+    }
+}
