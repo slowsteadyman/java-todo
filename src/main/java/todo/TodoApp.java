@@ -46,6 +46,9 @@ public class TodoApp {
                 case 7:
                     createTab();
                     break;
+                case 8:
+                    updateTab();
+                    break;
             }
         }
     }
@@ -78,7 +81,7 @@ public class TodoApp {
         while (true) {
             try {
                 String name = View.readTodoName();
-                Validator.validateTodoName(name);
+                Validator.validateName(name);
                 return name;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -140,7 +143,7 @@ public class TodoApp {
             return;
         }
 
-        String name = readTodoNameUntilValidForUpdate(todoView.getName());
+        String name = readNameUntilValidForUpdate(todoView.getName());
         String description = View.readTodoDescriptionForUpdate(terminalManager, todoView.getDescription());
         int tabId = readTodoTabIdUntilValidForUpdate(todoView.getTabId());
         String deadline = readTodoDeadlineUntilValidForUpdate(todoView.getDeadline());
@@ -162,11 +165,11 @@ public class TodoApp {
         }
     }
 
-    private String readTodoNameUntilValidForUpdate(String name) {
+    private String readNameUntilValidForUpdate(String name) {
         while (true) {
             try {
-                String nameUpdated = View.reaadAdjustedTodoName(terminalManager, name);
-                Validator.validateTodoName(nameUpdated);
+                String nameUpdated = View.reaadAdjustedName(terminalManager, name);
+                Validator.validateName(nameUpdated);
                 // terminal.flush();
                 return nameUpdated;
             } catch (IllegalArgumentException e) {
@@ -244,5 +247,37 @@ public class TodoApp {
 
         dbManager.insertTab(tab);
         View.printSuccess("create");
+    }
+
+    private void updateTab() {
+        Tab tab = selectTab();
+        if (tab == null) {
+            return;
+        }
+
+        String name = readNameUntilValidForUpdate(tab.getName());
+        tab.setName(name);
+        dbManager.updateTab(tab);
+    }
+
+    private Tab selectTab() {
+        HashMap<Integer, String> tabs = dbManager.readTabsWithoutDone();
+        while (true) {
+            try {
+                String tabId = View.readTabIdForUpdate(tabs);
+                Validator.validateTabId(tabId);
+                int tabIdValid = Integer.parseInt(tabId);
+                if (tabIdValid == 0) {
+                    return null;
+                }
+                Tab tab = dbManager.selectTab(tabIdValid);
+                if (tab != null) {
+                    return tab;
+                }
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

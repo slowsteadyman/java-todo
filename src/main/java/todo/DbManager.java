@@ -157,4 +157,34 @@ public class DbManager {
             e.printStackTrace(System.err);
         }
     }
+
+    public Tab selectTab(int tabIdValid) {
+        Tab tab = null;
+        try (
+            Connection conn = DriverManager.getConnection(dbUrl);
+            PreparedStatement pstmt = conn.prepareStatement(SqlQueries.SELECT_TAB);
+        ) {
+            pstmt.setInt(1, tabIdValid);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                tab = new Tab(rs.getInt(1), rs.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return tab;
+    }
+
+    public void updateTab(Tab tab) {
+        try (
+            Connection conn = DriverManager.getConnection(dbUrl);
+            PreparedStatement pstmt = conn.prepareStatement(SqlQueries.UPDATE_TAB);
+        ) {
+            pstmt.setInt(2, tab.getId());
+            pstmt.setString(1, tab.getName());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+    }
 }

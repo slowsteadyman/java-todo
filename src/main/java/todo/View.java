@@ -26,7 +26,8 @@ public class View {
             4. delete   todo
             5. complete todo
             6. read completed todo
-            7. create tab"""));
+            7. create tab
+            8. update tab"""));
         System.out.println("""
             ----------------------
             -1. exit
@@ -71,6 +72,12 @@ public class View {
         return Helper.readLine();
     }
 
+    public static String readTabIdForUpdate(HashMap<Integer, String> tabs) {
+        printTabs(tabs);
+        System.out.printf(Theme.applyBold("Enter tab number(0=cancel): "));
+        return Helper.readLine();
+    }
+
     public static void printTodos(List<TodoView> todos) {
         int index = 1;
         TodoLongestFieldLen todoLongestFieldLen = Helper.findTodoLongestFieldLen(todos);
@@ -109,7 +116,7 @@ public class View {
         return Helper.readLine();
     }
 
-    public static String reaadAdjustedTodoName(TerminalManager terminalManager, String name) {
+    public static String reaadAdjustedName(TerminalManager terminalManager, String name) {
         System.out.printf(Theme.applyBold("Update name: "));
         return terminalManager.readLine(name);
     }

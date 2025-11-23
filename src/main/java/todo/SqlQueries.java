@@ -60,4 +60,10 @@ public class SqlQueries {
 
     public static final String INSERT_TAB =
         "INSERT INTO tabs (name) VALUES (?);";
+
+    public static final String SELECT_TAB =
+        "SELECT * FROM tabs WHERE id = ?;";
+
+    public static final String UPDATE_TAB =
+        "UPDATE tabs SET name = ? WHERE id = ?;";
 }
