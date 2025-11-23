@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
 public class Validator {
-    private static final int NUM_OPTIONS = 8;
+    private static final int NUM_OPTIONS = 9;
     private static final String ERROR_INVALID_OPTION = Theme.applyErrorBold("INVALID OPTION NUMBER!");
     private static final String ERROR_NULL_NAME = Theme.applyErrorBold("NAME NOT NULL!");
     private static final String ERROR_NOT_EXIST_TAB = Theme.applyErrorBold("NOT EXIST TAB NUMBER!");

@@ -49,6 +49,9 @@ public class TodoApp {
                 case 8:
                     updateTab();
                     break;
+                case 9:
+                    deleteTab();
+                    break;
             }
         }
     }
@@ -279,5 +282,14 @@ public class TodoApp {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void deleteTab() {
+        Tab tab = selectTab();
+        if (tab == null) {
+            return;
+        }
+        int id = tab.getId();
+        dbManager.deleteTab(id);
     }
 }

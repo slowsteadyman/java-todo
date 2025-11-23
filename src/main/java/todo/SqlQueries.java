@@ -66,4 +66,7 @@ public class SqlQueries {
 
     public static final String UPDATE_TAB =
         "UPDATE tabs SET name = ? WHERE id = ?;";
+
+    public static final String DELETE_TAB =
+        "DELETE FROM tabs WHERE id = ?;";
 }
