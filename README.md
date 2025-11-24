@@ -1,4 +1,4 @@
-# 📝 simple todo app
+# 📝 simple terminal-todo-app 🖥️
 
 ---
 
@@ -15,8 +15,8 @@
 <img width="648" height="379" alt="Image" src="https://github.com/user-attachments/assets/f698bed1-e91e-4da0-92a1-a1ea0edc3e30" />
 
 - 프로그램 시작화면
-- 9가지 옵션 (할일 생성/조회/수정/삭제/완료, 완료된 할일 조회, 탭 생성/수정/삭제)과
-- 2가지 옵션 (프로그램 종료, 옵션 목록 보기) 중 하나를 선택할 수 있다
+  - 9가지 옵션 (할일 생성/조회/수정/삭제/완료, 완료된 할일 조회, 탭 생성/수정/삭제)과
+  - 2가지 옵션 (프로그램 종료, 옵션 목록 보기) 중 하나를 선택할 수 있다
   
 <img width="648" height="414" alt="Image" src="https://github.com/user-attachments/assets/8dc50b62-ba52-48f7-b007-39f44c85f05c" />
 
